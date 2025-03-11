@@ -25,16 +25,20 @@ class _ImplicitAnimationsScreenState extends State<ImplicitAnimationsScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            AnimatedContainer(
-              duration: Duration(milliseconds: 1000),
-              curve: Curves.easeInBack,
-              width: size.width * 0.8,
-              height: size.width * 0.8,
-              transform: Matrix4.rotationZ(_visible ? 1 : 0),
-              transformAlignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: _visible ? Colors.red : Colors.amber,
-                  borderRadius: BorderRadius.circular(_visible ? 100 : 0)),
+            TweenAnimationBuilder(
+              tween: ColorTween(
+                begin: Colors.purple,
+                end: Colors.red,
+              ),
+              curve: Curves.bounceInOut,
+              duration: Duration(seconds: 10),
+              builder: (context, value, child) {
+                return Image.network(
+                  "https://upload.wikimedia.org/wikipedia/commons/3/3f/Dash_the_dart_mascot.png",
+                  color: value,
+                  colorBlendMode: BlendMode.colorBurn,
+                );
+              },
             ),
             SizedBox(
               height: 10,
