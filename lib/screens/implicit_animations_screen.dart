@@ -27,13 +27,14 @@ class _ImplicitAnimationsScreenState extends State<ImplicitAnimationsScreen> {
           children: [
             AnimatedContainer(
               duration: Duration(milliseconds: 1000),
-              width: _visible ? size.width : size.width * 0.8,
-              height: _visible ? size.width : size.width * 0.8,
+              curve: Curves.easeInBack,
+              width: size.width * 0.8,
+              height: size.width * 0.8,
               transform: Matrix4.rotationZ(_visible ? 1 : 0),
               transformAlignment: Alignment.center,
               decoration: BoxDecoration(
                   color: _visible ? Colors.red : Colors.amber,
-                  borderRadius: BorderRadius.circular(_visible ? 300 : 0)),
+                  borderRadius: BorderRadius.circular(_visible ? 100 : 0)),
             ),
             SizedBox(
               height: 10,
