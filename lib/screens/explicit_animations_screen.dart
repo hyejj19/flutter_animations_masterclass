@@ -29,15 +29,17 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
         borderRadius: BorderRadius.circular(120),
       )).animate(_animationController);
 
+  late final CurvedAnimation _curved = CurvedAnimation(
+      parent: _animationController, curve: Curves.easeInOutBack);
+
   late final Animation<double> _rotation =
-      Tween(begin: 0.0, end: 2.0).animate(_animationController);
+      Tween(begin: 0.0, end: 2.0).animate(_curved);
 
   late final Animation<double> _scale =
-      Tween(begin: 0.5, end: 2.0).animate(_animationController);
+      Tween(begin: 0.5, end: 2.0).animate(_curved);
 
   late final Animation<Offset> _offset =
-      Tween(begin: Offset.zero, end: Offset(0, -0.5))
-          .animate(_animationController);
+      Tween(begin: Offset.zero, end: Offset(0, -0.5)).animate(_curved);
 
   void _play() {
     _animationController.forward();
