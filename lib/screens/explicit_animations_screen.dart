@@ -13,10 +13,15 @@ class ExplicitAnimationsScreen extends StatefulWidget {
 class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(
-        seconds: 10,
-      ));
+    vsync: this,
+    duration: Duration(
+      seconds: 10,
+    ),
+  )..addListener(
+      () {
+        setState(() {});
+      },
+    );
 
   void _play() {
     _animationController.forward();
