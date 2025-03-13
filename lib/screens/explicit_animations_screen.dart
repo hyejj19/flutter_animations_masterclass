@@ -17,11 +17,7 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
     duration: Duration(
       seconds: 10,
     ),
-  )..addListener(
-      () {
-        setState(() {});
-      },
-    );
+  );
 
   void _play() {
     _animationController.forward();
@@ -50,7 +46,19 @@ class _ExplicitAnimationsScreenState extends State<ExplicitAnimationsScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text("${_animationController.value}"),
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: _animationController.value,
+                  child: Container(
+                    color: Colors.amber,
+                    width: 300,
+                    height: 300,
+                  ),
+                );
+              },
+            ),
           ),
           ElevatedButton(
             onPressed: _play,
