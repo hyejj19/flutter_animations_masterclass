@@ -22,25 +22,19 @@ class _CustomPainterChallengeScreenState
   late AnimationController _animationController;
   late Animation<double> _progress;
 
-  /// 애니메이션 컨트롤러를 재생성하여 시간을 초기화하는 함수
   void _updateAnimationController() {
-    _animationController.dispose(); // 기존 컨트롤러 해제
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: sec), // 남은 시간 기준으로 설정
-    );
     _progress = Tween(begin: 0.0, end: 1.0).animate(_animationController);
   }
 
   /// 타이머 시작
   void _onPlay() {
+    timer = Timer.periodic(Duration(seconds: 1), onTick); // 매 초마다 onTick 실행
     if (isStop) {
-      sec = initSec; // 타이머가 멈춘 상태에서 다시 시작하면 초기화
-      _updateAnimationController();
+      _animationController.forward(from: 0); // 애니메이션 시작
+    } else {
+      _animationController.forward();
     }
 
-    timer = Timer.periodic(Duration(seconds: 1), onTick); // 매 초마다 onTick 실행
-    _animationController.forward(from: 0); // 애니메이션 시작
     isRunning = true;
     isStop = false;
     setState(() {});
@@ -68,6 +62,7 @@ class _CustomPainterChallengeScreenState
   /// 타이머 정지
   void _onStop() {
     timer?.cancel(); // 타이머 중지
+    sec = initSec;
     isRunning = false;
     isStop = true;
     _animationController.stop(); // 애니메이션 정지
