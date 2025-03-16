@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animations_masterclass/screens/custom_painter_challenge.dart';
 import 'package:flutter_animations_masterclass/screens/explicit_animations_challenge_screen.dart';
 import 'package:flutter_animations_masterclass/screens/explicit_animations_screen.dart';
 import 'package:flutter_animations_masterclass/screens/implicit_animation_challenge_screen.dart';
@@ -60,6 +61,15 @@ class MenuScreen extends StatelessWidget {
                 );
               },
               child: Text('Explicit Animations Challenge'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _goToPage(
+                  context,
+                  CustomPainterChallengeScreen(),
+                );
+              },
+              child: Text('Custom Painter Challenge'),
             ),
           ],
         ),
