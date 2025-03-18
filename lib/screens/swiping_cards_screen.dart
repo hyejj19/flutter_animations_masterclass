@@ -15,8 +15,8 @@ class _SwipingCardsScreenState extends State<SwipingCardsScreen>
   late final AnimationController _position = AnimationController(
     vsync: this,
     duration: Duration(seconds: 1),
-    lowerBound: size.width * -1,
-    upperBound: size.width,
+    lowerBound: (size.width + 100) * -1,
+    upperBound: (size.width + 100),
     value: 0.0,
   );
 
@@ -30,10 +30,13 @@ class _SwipingCardsScreenState extends State<SwipingCardsScreen>
   }
 
   void _onHorizontalDragEnd(DragEndDetails detail) {
-    _position.animateTo(
-      0,
-      curve: Curves.easeInOut,
-    );
+    final bound = size.width - 100;
+    final dropzone = size.width + 100;
+    final target = _position.value.abs() >= bound
+        ? (_position.value.isNegative ? dropzone * -1 : dropzone)
+        : 0.0;
+
+    _position.animateTo(target, curve: Curves.easeInOut);
   }
 
   @override
@@ -57,9 +60,10 @@ class _SwipingCardsScreenState extends State<SwipingCardsScreen>
           final angle = _rotation
               .transform((_position.value + size.width / 2) / size.width);
           return Stack(
+            alignment: Alignment.topCenter,
             children: [
-              Align(
-                alignment: Alignment.topCenter,
+              Positioned(
+                top: 100,
                 child: GestureDetector(
                   onHorizontalDragUpdate: _onHorizontalDragUpdate,
                   onHorizontalDragEnd: _onHorizontalDragEnd,
