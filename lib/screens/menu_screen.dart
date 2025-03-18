@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animations_masterclass/screens/custom_painter_challenge.dart';
 import 'package:flutter_animations_masterclass/screens/explicit_animations_challenge_screen.dart';
 import 'package:flutter_animations_masterclass/screens/explicit_animations_screen.dart';
+import 'package:flutter_animations_masterclass/screens/flash_cards_screen.dart';
 import 'package:flutter_animations_masterclass/screens/implicit_animation_challenge_screen.dart';
 import 'package:flutter_animations_masterclass/screens/implicit_animations_screen.dart';
 import 'package:flutter_animations_masterclass/screens/swiping_cards_screen.dart';
@@ -80,6 +81,15 @@ class MenuScreen extends StatelessWidget {
                 );
               },
               child: Text('Swiping Cards'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _goToPage(
+                  context,
+                  FlashCardsScreen(),
+                );
+              },
+              child: Text('Flash Cards'),
             ),
           ],
         ),
