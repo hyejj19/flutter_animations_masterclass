@@ -20,10 +20,8 @@ class _SwipingCardsScreenState extends State<SwipingCardsScreen>
     value: 0.0,
   );
 
-  late final Tween<double> _rotation = Tween(
-    begin: -15,
-    end: 15,
-  );
+  late final Tween<double> _rotation = Tween(begin: -15, end: 15);
+  late final Tween<double> _scale = Tween(begin: 0.8, end: 1.0);
 
   void _onHorizontalDragUpdate(DragUpdateDetails detail) {
     _position.value += detail.delta.dx;
@@ -59,9 +57,24 @@ class _SwipingCardsScreenState extends State<SwipingCardsScreen>
           // 이를 다시 size.width 로 나누어서 0~1 사이의 비율로 만듦 (어떤 값을 전체 크기로 나누면 비율이 된다는 것...!)
           final angle = _rotation
               .transform((_position.value + size.width / 2) / size.width);
+          final scale = _scale.transform(_position.value.abs() / size.width);
           return Stack(
             alignment: Alignment.topCenter,
             children: [
+              Positioned(
+                top: 100,
+                child: Transform.scale(
+                  scale: scale,
+                  child: Material(
+                    elevation: 10,
+                    color: Colors.blue.shade100,
+                    child: SizedBox(
+                      width: size.width * 0.8,
+                      height: size.height * 0.5,
+                    ),
+                  ),
+                ),
+              ),
               Positioned(
                 top: 100,
                 child: GestureDetector(
